@@ -7,7 +7,6 @@ export const BlogPage=():ReactElement=>{
     const dispatch = useAppDispatch()
     const logoutHandler =()=>{
         localStorage.removeItem('auth')
-        localStorage.removeItem('auth')
         dispatch(logout())
 
     }

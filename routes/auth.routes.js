@@ -5,6 +5,8 @@ const router = Router()
 const {check, validationResult} = require('express-validator')
 const jwt = require('jsonwebtoken')
 const config = require('config')
+const auth = require('../middlewares/auth.middleware')
+const { findById } = require('../models/User')
 
 // /api/auth/register
 router.post(
@@ -78,6 +80,19 @@ router.post('/login',
         res.json({token, userId: user.id})
 
     
+    } catch (e) {
+        res.status(500).json({message: 'Something went wrong'})
+    }
+})
+router.get('/getUser', auth,
+    
+    async(req, res)=>{
+ try {
+     const userId = req.user.userId
+     const user = await User.findById(userId)
+     res.json({user})
+     console.log(user)
+ 
     } catch (e) {
         res.status(500).json({message: 'Something went wrong'})
     }

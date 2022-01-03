@@ -8,7 +8,8 @@ import { authSlice } from "../src/store/redusers/authReducer";
 
 
 function App() {
-  const isAuth= !!useAppSelector(state => state.authReducer.token)
+  const isAuth = useAppSelector(state => state.authReducer.isAuth)
+  console.log(isAuth)
   
   
   const routes = useRoutes(isAuth)
