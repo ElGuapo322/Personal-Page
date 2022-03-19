@@ -13,6 +13,7 @@ module.exports = (req, res, next)=>{
    }
      const decode = jwt.verify(token, config.get('jwtSecret'))
      req.user = decode
+     
      next()
   }catch(e){
     return res.status(401).json({message:'No authorization'})

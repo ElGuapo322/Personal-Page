@@ -1,13 +1,15 @@
-const {Schema, model, Types} = require('mongoose')
+const {Schema, model, Types} = require('mongoose').set('debug', true);
 
 const schema = new Schema({
    email:{type: String, required:true, unique: true},
    password:{type: String, required: true},
    name:{type: String, required:true},
    lastName:{type: String, required:true},
-//    comments:[{type: Types.ObjectId, ref: 'Comments'}],
-//    likedPosts:[{type: Types.ObjectId, ref:'Post'}],
-//    likedComments:[{type: Types.ObjectId, ref: 'Comments'}]
+   comments:[{type: Types.ObjectId, ref: 'Comments'}],
+   role:{type: String, required:true, default:'user'},
+   posts:{type: Types.ObjectId, ref:'Post'},
+   likedPosts:[{type: Types.ObjectId, ref:'Post'}],
+   likedComments:[{type: Types.ObjectId, ref: 'Comments'}],
 })
 
 module.exports = model('User', schema)

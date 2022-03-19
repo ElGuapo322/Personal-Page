@@ -1,10 +1,10 @@
 import React, { ReactElement, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { authSlice } from "../../store/redusers/authReducer";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { authSlice } from "../../../store/redusers/authReducer";
 import './Header.css'
 import jwt_decode from "jwt-decode"
-import {getMyUser} from '../../store/redusers/authReducer'
+import {getMyUser} from '../../../store/redusers/authReducer'
 
 
 interface HeaderProps{

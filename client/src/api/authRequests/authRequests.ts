@@ -1,6 +1,6 @@
 import axios from "axios";
-import { instance } from ".";
-import { IUser } from "../models/IUser";
+import { instance } from "..";
+import { IUser } from "../../models/IUser";
 
 export async function loginUser(body:any):Promise<any> {
     return instance.post('/auth/login', body)

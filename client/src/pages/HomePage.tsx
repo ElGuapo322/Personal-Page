@@ -3,7 +3,7 @@ import React, { ReactElement, useState } from "react";
 import { useAppDispatch } from "../hooks/redux";
 import { authSlice } from "../store/redusers/authReducer";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../api/authRequests";
+import { loginUser } from "../api/authRequests/authRequests";
 import { login, register } from "../store/redusers/authReducer";
 
 

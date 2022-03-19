@@ -23,6 +23,7 @@ export const LoginPage=():ReactElement=>{
         dispatch(login({email:email, password: password}))
     }
     useEffect(()=>{
+        console.log(isLogin)
         if(isLogin){
             navigate('/')
             dispatch(getMyUser())

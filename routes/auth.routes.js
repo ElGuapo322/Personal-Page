@@ -35,8 +35,8 @@ try {
     }
     const hashedPassword = await bcrypt.hash(password, 12)
     const user = new User({name, lastName, email, password: hashedPassword})
-
-    await user.save()
+     await user.save()
+   
     res.status(201).json({message:'User is created'})
 
 } catch (e) {
@@ -91,7 +91,6 @@ router.get('/getUser', auth,
      const userId = req.user.userId
      const user = await User.findById(userId)
      res.json({user})
-     console.log(user)
  
     } catch (e) {
         res.status(500).json({message: 'Something went wrong'})

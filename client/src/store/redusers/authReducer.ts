@@ -1,13 +1,18 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios, { AxiosError } from 'axios'
-import { loginUser, registerUser, getUser } from '../../api/authRequests'
+import { loginUser, registerUser, getUser } from '../../api/authRequests/authRequests'
 import {IUser} from '../../models/IUser'
 
 interface UserData{
     email:string,
     name:string,
     lastName: string,
-    _id:string
+    _id:string,
+    role:string,
+    posts:string[],
+    likedPosts:string[],
+    comments:string[],
+    likedCommenst: string[],
 }
 
  interface IAuthState {
@@ -25,7 +30,13 @@ interface UserData{
        email:'',
        name: '',
        lastName:'',
-       _id:''
+       _id:'',
+       role:'',
+       posts:[],
+       likedPosts:[],
+       comments:[],
+       likedCommenst: [],
+   
      },
      isAuth: Boolean(localStorage.getItem('auth')) || false,
      token: localStorage.getItem('token') || '',
@@ -82,12 +93,12 @@ interface UserData{
                localStorage.removeItem('token')
                state.token = ''
                state.isAuth = false
+               state.isLoginSuccess = false
          }
 
      },
      extraReducers:(builder)=> {
         builder.addCase(login.fulfilled, (state,action:PayloadAction<any>)=>{
-            console.log(action)
             localStorage.setItem('auth', 'true')
             localStorage.setItem('token', action.payload.token)
             state.token = action.payload.token
@@ -98,8 +109,9 @@ interface UserData{
             console.log("huy")
          })
          builder.addCase(login.rejected, (state,action:PayloadAction<any>)=>{
-            state.error.push(action.payload.message)
+        //state.error.push(action.payload.message)
             console.log(action)
+           
          })
          builder.addCase(register.fulfilled, (state,action:PayloadAction<any>)=>{
           state.isRegisterSuccess = true
