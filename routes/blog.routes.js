@@ -28,7 +28,7 @@ router.post('/post', auth,
         const user = await User.findById(author)
         const updated = await User.findByIdAndUpdate(author, {posts: [...user.posts, post._id]})
         
-      await post.save()
+        await post.save()
         res.status(201).json({message:'Post is created'})
     } catch (e) {
         res.status(500).json({message: 'Something went wrong'})

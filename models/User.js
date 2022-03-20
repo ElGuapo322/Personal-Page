@@ -7,7 +7,10 @@ const schema = new Schema({
    lastName:{type: String, required:true},
    comments:[{type: Types.ObjectId, ref: 'Comments'}],
    role:{type: String, required:true, default:'user'},
-   posts:{type: Types.ObjectId, ref:'Post'},
+   posts:[{
+      type: Schema.Types.ObjectId,
+      ref: "Post"
+   }],
    likedPosts:[{type: Types.ObjectId, ref:'Post'}],
    likedComments:[{type: Types.ObjectId, ref: 'Comments'}],
 })

@@ -89,7 +89,7 @@ router.get('/getUser', auth,
     async(req, res)=>{
  try {
      const userId = req.user.userId
-     const user = await User.findById(userId)
+     const user = await User.findById(userId).populate("posts").exec()
      res.json({user})
  
     } catch (e) {
