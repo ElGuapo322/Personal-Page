@@ -5,7 +5,7 @@ import { HomePage } from "./pages/HomePage";
 import { PortfolioPage } from "./pages/PortfolioPage";
 import {LoginPage} from '../src/pages/LoginPage/LoginPage'
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
-import { Header } from "./components/Header/Header/Header";
+import { Header } from "./components/Header/Header";
 
 export const useRoutes = (isAuth:boolean) =>{
     console.log(isAuth)

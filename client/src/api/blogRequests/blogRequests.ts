@@ -13,3 +13,12 @@ export async function posting(body:any):Promise<any> {
 export async function allPosts():Promise<any> {
     return instance.get('/blog/getAllPosts',)
 }
+
+export async function commenting(body:any):Promise<any> {
+    return instance.post('/blog/comment', body,{
+        headers:{
+            'Content-Type': 'application/json',
+            "Authorization" : `Bearer ${localStorage.getItem('token')}`
+        }
+    })
+}

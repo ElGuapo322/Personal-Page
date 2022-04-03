@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from "react";
-import { useAppDispatch } from "../../../hooks/redux";
-import {givePost} from '../../../store/redusers/blogReducer'
+import { useAppDispatch } from "../../hooks/redux";
+import {givePost} from '../../store/redusers/blogReducer'
 
 interface IBlogPostForm{
     userId:string
