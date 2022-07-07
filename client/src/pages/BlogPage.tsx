@@ -33,7 +33,6 @@ return(
                   author={post.author}
                   comments={post.comments}
                   likes={post.likes}
-
                   />
               )
             )}

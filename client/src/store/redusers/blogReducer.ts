@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {posting, allPosts, commenting} from '../../api/blogRequests/blogRequests'
+import { IComment } from '../../models/IComment'
 
 export interface IPost{
     _id: string,
@@ -7,16 +8,16 @@ export interface IPost{
     title:string,
     text:string,
     name:string,
-    comments:string[],
+    comments:IComment[],
     likes:string[],
 }
-interface IComment{
-    _id: string,
-    author:string,
-    text:string,
-    parentId:string
-    replies:string[],
-}
+// interface IComment{
+//     _id: string,
+//     author:string,
+//     text:string,
+//     parentId:string
+//     replies:string[],
+// }
 
 interface IBlogState{
     posts: IPost[],
@@ -75,7 +76,7 @@ export const givePost = createAsyncThunk(
   )
 
 
-  export const authSlice = createSlice({
+  export const blogSlice = createSlice({
     name: 'blog',
     initialState,
     reducers:{
@@ -102,4 +103,4 @@ export const givePost = createAsyncThunk(
 },
 })
 
-export default authSlice.reducer
+export default blogSlice.reducer
