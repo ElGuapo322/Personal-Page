@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { authSlice } from "../store/redusers/authReducer";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { BlogPostForm } from "../components/BlogPostForm/BlogPostForm";
-import {getAllPosts} from '../store/redusers/blogReducer'
+import {getAllPosts, getAllComments} from '../store/redusers/blogReducer'
 import {Post} from '../components/PostComponent/Post'
 import IPost from '../store/redusers/blogReducer'
 
@@ -16,6 +16,7 @@ export const BlogPage=():ReactElement=>{
     
     useEffect(()=>{
       dispatch(getAllPosts())
+      dispatch(getAllComments())
       console.log(posts)
     },[])
     

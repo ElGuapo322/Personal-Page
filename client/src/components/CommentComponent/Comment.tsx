@@ -1,8 +1,9 @@
 import React, {ReactElement, useState} from "react"
-import { useAppDispatch } from "../../hooks/redux"
+import { useAppDispatch, useAppSelector } from "../../hooks/redux"
 import { giveComment } from "../../store/redusers/blogReducer"
 import './Comment.scss'
 import {IComment} from "../../models/IComment"
+
 
 interface CommentProps {
     date?: string
@@ -11,23 +12,34 @@ interface CommentProps {
     replies?: IComment[]
     likes:string[]
     id: string
+    isReply?: boolean
+    parentCommentId?: String
 
 }
 
-export const Comment=({id,text, author, likes, replies}:CommentProps):ReactElement=>{
+export const Comment=({id,text, author, likes, replies, isReply, parentCommentId}:CommentProps):ReactElement=>{
     const dispatch = useAppDispatch()
    const [commentText, setCommentText] = useState('')
    const [isOpenReplyForm, setIsOpenReplyForm] = useState(false)
+   const user = useAppSelector(state=>state.authReducer.data)
 
    const commentInput =(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
        setCommentText(e.target.value)
    }
 
    const sendCommentHandler=()=>{
+    if(!isReply){
         dispatch(giveComment({
             text: commentText,
             replyFor:id
         }))
+    } else {
+        dispatch(giveComment({
+            text: commentText,
+            replyFor:parentCommentId
+        }))
+    }
+        
    }
    const replyHandler=()=>{
     setIsOpenReplyForm(!isOpenReplyForm)
@@ -36,6 +48,9 @@ export const Comment=({id,text, author, likes, replies}:CommentProps):ReactEleme
 
    return(
        <div className="comment">
+        <div className="comment_author">
+         {`${user.name} ${user.lastName}`}
+        </div>
            {text}
            <div className="comment__actions">
                 <div className="actions">
@@ -54,7 +69,7 @@ export const Comment=({id,text, author, likes, replies}:CommentProps):ReactEleme
                 )}
                 <div className="replies">
                     { (replies && replies.length>0) && replies.map((reply)=>(
-                            <Comment
+                        <Comment
                             key={reply._id}
                             text={reply.text}
                             author={reply.author}
@@ -62,8 +77,9 @@ export const Comment=({id,text, author, likes, replies}:CommentProps):ReactEleme
                             likes={reply.likes}
                             id={reply._id}
                             replies={reply.replies}
-
-                            />
+                            isReply={true}
+                            parentCommentId={id}
+                         />
                     ))
                     
                        

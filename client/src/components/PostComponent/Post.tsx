@@ -1,5 +1,5 @@
 import React, {ReactElement, useState} from "react"
-import { useAppDispatch } from "../../hooks/redux"
+import { useAppDispatch, useAppSelector } from "../../hooks/redux"
 import { giveComment } from "../../store/redusers/blogReducer"
  import './Post.css'
  import {IComment} from '../../models/IComment'
@@ -19,6 +19,7 @@ interface PostProps {
 export const Post=({id, date,text, author, title, comments, likes}:PostProps):ReactElement=>{
     const dispatch = useAppDispatch()
    const [commentText, setCommentText] = useState('')
+   const allComments = useAppSelector(state => state.blogReducer.comments)
 
    const commentInput =(e:React.ChangeEvent<HTMLTextAreaElement>)=>{
        setCommentText(e.target.value)
@@ -44,8 +45,9 @@ export const Post=({id, date,text, author, title, comments, likes}:PostProps):Re
                       <textarea className="comment-area" onChange={commentInput}></textarea>
                       <button onClick={sendCommentHandler}>Send Comment</button>
                 </div>
-                { comments.length && comments.map((comment)=>(
-                   <Comment
+                { allComments.length && allComments.map((comment)=>{
+                   if( comment.parentId === id ) 
+                   return( <Comment
                         key={comment._id}
                         text={comment.text}
                         author={comment.author}
@@ -53,8 +55,9 @@ export const Post=({id, date,text, author, title, comments, likes}:PostProps):Re
                         likes={comment.likes}
                         id={comment._id}
                         replies={comment.replies}
+                    
                    />
-                ))
+                )})
                 }
             </div>
        </div>

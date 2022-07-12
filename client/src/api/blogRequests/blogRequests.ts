@@ -14,6 +14,10 @@ export async function allPosts():Promise<any> {
     return instance.get('/blog/getAllPosts',)
 }
 
+export async function allComments():Promise<any> {
+    return instance.get('/blog/getAllComments',)
+}
+
 export async function commenting(body:any):Promise<any> {
     return instance.post('/blog/comment', body,{
         headers:{

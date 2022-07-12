@@ -52,6 +52,22 @@ router.get('/getAllPosts',
     }
 })
 
+router.get('/getAllComments',
+
+    async(req, res)=>{
+ try {
+      const commentList  = await Comment.find().populate({
+        path: "author", // populate blogs
+        path: "replies", // populate blogs
+     }).exec()
+    res.json({commentList})
+    
+    } catch (e) {
+        res.status(500).json({message: 'Something went wrong'})
+    }
+})
+
+
 router.post('/comment', auth,
     [
       check('text', 'Your post have to contain text').exists(),
@@ -85,7 +101,7 @@ router.post('/comment', auth,
         }
         
         await comment.save()
-        res.status(201).json({message:'Comment is created'})
+        res.status(201).json({comment})
     } catch (e) {
         res.status(500).json({message: 'Something went wrong'})
     }

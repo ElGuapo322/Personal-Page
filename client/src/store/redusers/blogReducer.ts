@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import {posting, allPosts, commenting} from '../../api/blogRequests/blogRequests'
+import {posting, allPosts, commenting, allComments} from '../../api/blogRequests/blogRequests'
 import { IComment } from '../../models/IComment'
 
 export interface IPost{
@@ -61,12 +61,26 @@ export const givePost = createAsyncThunk(
         }
       }
   )
+  export const getAllComments = createAsyncThunk(
+    'blog/getAllComments',
+    async(_, {rejectWithValue})=>{
+        try{
+          const response = await allComments()
+           return response.data
+        }catch(e:any){
+            const error = e.response.data
+            return rejectWithValue(error)
+        }
+      }
+  )
 
   export const giveComment = createAsyncThunk(
     'blog/giveComment',
     async(commentData:any, {rejectWithValue})=>{
         try{
           const response = await commenting(commentData)
+          console.log(response);
+          
            return response.data
         }catch(e:any){
             const error = e.response.data
@@ -93,8 +107,12 @@ export const givePost = createAsyncThunk(
     builder.addCase(getAllPosts.fulfilled, (state,action:PayloadAction<any>)=>{
         state.posts = action.payload.postsList
     })
+    builder.addCase(getAllComments.fulfilled, (state,action:PayloadAction<any>)=>{
+        state.comments = action.payload.commentList
+    })
     builder.addCase(giveComment.fulfilled, (state,action:PayloadAction<any>)=>{
-        state.comments.push(action.payload)
+        state.comments.push(action.payload.comment)
+        
     })
     builder.addCase(giveComment.rejected, (state, action:PayloadAction<any>)=>{
         state.isCreateCommentSuccess = false
