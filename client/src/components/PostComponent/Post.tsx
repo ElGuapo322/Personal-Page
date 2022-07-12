@@ -46,11 +46,13 @@ export const Post=({id, date,text, author, title, comments, likes}:PostProps):Re
                 </div>
                 { comments.length && comments.map((comment)=>(
                    <Comment
+                        key={comment._id}
                         text={comment.text}
                         author={comment.author}
                         date={comment.created_at}
                         likes={comment.likes}
-                        id={comment.id}
+                        id={comment._id}
+                        replies={comment.replies}
                    />
                 ))
                 }

@@ -76,13 +76,12 @@ router.post('/comment', auth,
         const updated = await User.findByIdAndUpdate(userId, {comments: [...user.comments, comment._id]})
 
         const post = await Post.findById(replyFor)
-        console.log('huy', replyFor)
         if(post){
             const updatedPost = await Post.findByIdAndUpdate(replyFor, {comments: [...post.comments, comment._id]})
         }
         const parentComment = await Comment.findById(replyFor)
         if(parentComment){
-            const updatedComment = await Comment.findByIdAndUpdate(parentId, {replies: [...parentComment.replies, comment._id]})
+            const updatedComment = await Comment.findByIdAndUpdate(replyFor, {replies: [...parentComment.replies, comment._id]})
         }
         
         await comment.save()

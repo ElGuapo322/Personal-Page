@@ -1,5 +1,5 @@
 export interface IComment {
-    id:string;
+    _id:string;
     author:string;
     likes:string[];
     created_at:string;
